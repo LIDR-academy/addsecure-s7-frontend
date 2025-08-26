@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button, InputGroup, FormControl, Spinner } from 'react-bootstrap';
 
 const FileUploader = ({ onChange, onUpload }) => {
   const [file, setFile] = useState(null);
@@ -42,24 +41,23 @@ const FileUploader = ({ onChange, onUpload }) => {
 
   return (
     <div>
-      <InputGroup className="mb-3">
-        <FormControl
+      <div className="flex items-center gap-2 mb-3">
+        <input
           type="file"
           onChange={handleFileChange}
           aria-label="File"
-          aria-describedby="basic-addon2"
+          className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
         />
-        <Button variant="outline-secondary" onClick={handleFileUpload}>
-          {loading ? (
-            <Spinner animation="border" role="status" size="sm" />
-          ) : (
-            'Subir Archivo'
-          )}
-        </Button>
-      </InputGroup>
-      <p className="mb-0">Selected file: {fileName}</p>
+        <button
+          onClick={handleFileUpload}
+          className="inline-flex items-center px-3 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-50"
+        >
+          {loading ? 'Subiendo...' : 'Subir Archivo'}
+        </button>
+      </div>
+      <p className="mb-0 text-sm text-gray-600">Selected file: {fileName}</p>
       {fileData && (
-        <p className="mt-2">
+        <p className="mt-2 text-sm text-green-700">
           Archivo subido con éxito
         </p>
       )}

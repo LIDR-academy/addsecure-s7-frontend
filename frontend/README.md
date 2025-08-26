@@ -44,3 +44,20 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Styling
+
+This app uses Tailwind CSS (utility-first) instead of Bootstrap.
+
+- Tailwind config: `tailwind.config.js` with content paths for `src/**/*.{js,jsx,ts,tsx}`
+- PostCSS: `postcss.config.js` enables Tailwind and Autoprefixer
+- Directives added in `src/index.css`:
+  - `@tailwind base;`
+  - `@tailwind components;`
+  - `@tailwind utilities;`
+
+Conventions:
+
+- Prefer utility classes for layout/spacing/typography
+- Create small compositions via React components when patterns repeat (e.g., buttons/cards)
+- No Bootstrap or react-bootstrap is used anymore

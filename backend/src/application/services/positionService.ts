@@ -33,6 +33,24 @@ export const getCandidatesByPositionService = async (positionId: number) => {
     }
 };
 
+export const getAllPositionsService = async () => {
+    const positions = await prisma.position.findMany({
+        include: {
+            company: true,
+        },
+        orderBy: { id: 'asc' },
+    });
+
+    return positions.map(pos => ({
+        id: pos.id,
+        title: pos.title,
+        status: pos.status,
+        location: pos.location,
+        applicationDeadline: pos.applicationDeadline,
+        companyName: pos.company.name,
+    }));
+};
+
 export const getInterviewFlowByPositionService = async (positionId: number) => {
     const positionWithInterviewFlow = await prisma.position.findUnique({
         where: { id: positionId },
