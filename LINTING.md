@@ -60,6 +60,25 @@ When you run `git commit`:
 - **Husky config**: `.husky/pre-commit`
 - **lint-staged config**: `package.json` (root level)
 
+## Claude Code Hook
+
+When using [Claude Code](https://claude.ai/code), the project includes an automated linting hook that runs after file edits.
+
+### How it Works
+After Claude writes or edits a TypeScript/JavaScript file:
+1. The `PostToolUse` hook automatically triggers
+2. ESLint runs on the modified file
+3. If linting errors are found, Claude receives immediate feedback
+4. Claude can then fix the issues automatically
+
+### Configuration
+- **Hook config**: `.claude/settings.json`
+- **Hook script**: `.claude/hooks/lint-check.sh`
+
+This ensures code quality is maintained throughout the development session without manual intervention.
+
+**Note**: The hook only checks TypeScript and JavaScript files in the `frontend/` and `backend/` directories.
+
 ## Setup for New Developers
 
 After cloning the repository:
