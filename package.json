@@ -1,8 +1,28 @@
 {
+  "name": "lti-talent-tracking",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "husky",
+    "lint": "npm run lint --prefix frontend && npm run lint --prefix backend",
+    "lint:fix": "npm run lint:fix --prefix frontend && npm run lint:fix --prefix backend"
+  },
   "dependencies": {
     "dotenv": "^17.2.1"
   },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11"
+  },
   "prisma": {
     "schema": "backend/prisma/schema.prisma"
+  },
+  "lint-staged": {
+    "frontend/**/*.{ts,tsx}": [
+      "cd frontend && npm run lint:fix"
+    ],
+    "backend/**/*.ts": [
+      "cd backend && npm run lint:fix"
+    ]
   }
 }
