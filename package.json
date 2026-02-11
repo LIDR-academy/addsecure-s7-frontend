@@ -19,10 +19,10 @@
   },
   "lint-staged": {
     "frontend/**/*.{ts,tsx}": [
-      "cd frontend && npm run lint:fix"
+      "bash -c 'cd frontend && npx eslint --fix \"${0#frontend/}\"'"
     ],
     "backend/**/*.ts": [
-      "cd backend && npm run lint:fix"
+      "bash -c 'cd backend && npx eslint --fix \"${0#backend/}\"'"
     ]
   }
 }

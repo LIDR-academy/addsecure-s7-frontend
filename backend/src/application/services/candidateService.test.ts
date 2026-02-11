@@ -31,9 +31,11 @@ describe('updateCandidateStage', () => {
     });
 
     const result = await updateCandidateStage(1, 1, 2);
-    expect(result).toEqual(expect.objectContaining({
-      ...mockApplication,
-      currentInterviewStep: 2,
-    }));
+    expect(result).toEqual(
+      expect.objectContaining({
+        ...mockApplication,
+        currentInterviewStep: 2,
+      }),
+    );
   });
 });

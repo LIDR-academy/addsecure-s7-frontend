@@ -39,10 +39,11 @@ async function main() {
       employmentType: 'Full-time',
       benefits: 'Health insurance, 401k, Paid time off',
       contactInfo: 'hr@lti.com',
-      requirements: '3+ years of experience in software development, knowledge in React and Node.js',
+      requirements:
+        '3+ years of experience in software development, knowledge in React and Node.js',
       responsibilities: 'Develop, test, and maintain software solutions.',
       companyDescription: 'LTI is a leading HR solutions provider.',
-      applicationDeadline: new Date('2024-12-31')
+      applicationDeadline: new Date('2024-12-31'),
     },
   });
 
@@ -62,9 +63,10 @@ async function main() {
       benefits: 'Health insurance, 401k, Paid time off, Stock options',
       contactInfo: 'hr@lti.com',
       requirements: 'Master degree in Data Science or related field, proficiency in Python and R',
-      responsibilities: 'Analyze data sets to derive business insights and develop predictive models.',
+      responsibilities:
+        'Analyze data sets to derive business insights and develop predictive models.',
       companyDescription: 'LTI is a leading HR solutions provider.',
-      applicationDeadline: new Date('2024-12-31')
+      applicationDeadline: new Date('2024-12-31'),
     },
   });
 
@@ -211,8 +213,6 @@ async function main() {
     },
   });
 
-  
-
   // Create Interview Steps
   const interviewStep1 = await prisma.interviewStep.create({
     data: {
@@ -232,7 +232,7 @@ async function main() {
     },
   });
 
-  const interviewStep3 = await prisma.interviewStep.create({
+  await prisma.interviewStep.create({
     data: {
       interviewFlowId: interviewFlow1.id,
       interviewTypeId: interviewType3.id,
@@ -251,7 +251,7 @@ async function main() {
     },
   });
 
-  const employee2 = await prisma.employee.create({
+  await prisma.employee.create({
     data: {
       companyId: company1.id,
       name: 'Bob Miller',
@@ -288,7 +288,7 @@ async function main() {
     },
   });
 
-  const application4 = await prisma.application.create({
+  await prisma.application.create({
     data: {
       positionId: position1.id,
       candidateId: candidate3.id,
@@ -296,7 +296,6 @@ async function main() {
       currentInterviewStep: interviewStep1.id,
     },
   });
-
 
   // Create Interviews
   await prisma.interview.createMany({
@@ -327,7 +326,7 @@ async function main() {
         result: 'Passed',
         score: 4,
         notes: 'Good technical skills',
-      }
+      },
     ],
   });
 }
