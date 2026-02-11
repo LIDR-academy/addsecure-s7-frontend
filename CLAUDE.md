@@ -9,6 +9,7 @@ LTI (Talent Tracking System) is a full-stack recruitment management application 
 ## Development Commands
 
 ### Backend (from `/backend`)
+
 ```bash
 npm install              # Install dependencies
 npm run dev              # Development server with auto-reload (port 3010)
@@ -19,6 +20,7 @@ npm run prisma:generate  # Generate Prisma client
 ```
 
 ### Frontend (from `/frontend`)
+
 ```bash
 npm install   # Install dependencies
 npm start     # Development server (port 3000)
@@ -27,6 +29,7 @@ npm test      # Run tests
 ```
 
 ### Database Setup
+
 ```bash
 docker-compose up -d        # Start PostgreSQL
 npx prisma generate         # Generate Prisma client
@@ -37,6 +40,7 @@ ts-node seed.ts             # Seed sample data
 ## Architecture
 
 ### Backend (Domain-Driven Design)
+
 The backend follows a layered DDD architecture:
 
 - **`domain/models/`** - Business entities (Candidate, Position, Interview, Education, WorkExperience, Resume, Application, Company, Employee, InterviewFlow, InterviewStep, InterviewType)
@@ -45,18 +49,22 @@ The backend follows a layered DDD architecture:
 - **`routes/`** - API route definitions (candidateRoutes, positionRoutes)
 
 Key patterns:
+
 - Entities encapsulate business logic with constructors that transform raw data
 - Candidate is an aggregate root containing Education, WorkExperience, Resume, and Application
 - Services orchestrate domain models and handle complex operations
 
 ### Frontend
+
 - **`components/`** - React components (Positions, PositionBoard, KanbanBoard, KanbanColumn, CandidateCard, CandidateSidebar, ToastNotification)
 - **`hooks/`** - Custom React hooks (useCandidateDetails, usePositionBoard)
 - **`services/`** - API client services
 - **`types/`** - TypeScript type definitions
 
 ### API Endpoints
+
 Base URL: `http://localhost:3010`
+
 - `POST /candidates` - Create candidate
 - `GET /candidates/:id` - Get candidate details
 - `PUT /candidates/:id` - Update candidate
@@ -67,6 +75,7 @@ Base URL: `http://localhost:3010`
 ## Code Style Guidelines
 
 ### Frontend
+
 - Use Tailwind CSS for all styling (no CSS files or inline styles)
 - Use early returns for better readability
 - Prefix event handlers with "handle" (e.g., `handleClick`, `handleKeyDown`)
@@ -75,6 +84,7 @@ Base URL: `http://localhost:3010`
 - Use descriptive variable and function names
 
 ### General
+
 - Follow DRY principle - centralize repeated logic
 - TypeScript strict mode is enabled
 - ESLint + Prettier for code formatting

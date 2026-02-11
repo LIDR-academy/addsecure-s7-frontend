@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RecruiterDashboard from './components/RecruiterDashboard';
-import AddCandidate from './components/AddCandidateForm'; 
+import AddCandidate from './components/AddCandidateForm';
 import Positions from './components/Positions';
-import PositionBoard from './components/PositionBoard'; 
+import PositionBoard from './components/PositionBoard';
 
 const App = () => {
   return (

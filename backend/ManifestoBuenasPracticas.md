@@ -13,73 +13,71 @@ El **Diseño Guiado por el Dominio (DDD)** es una metodología que se enfoca en 
 **Componentes Clave:**
 
 - **Entidades:** Objetos con identidad distintiva.
-    
-    *Antes*
-    
-    ```tsx
-    // Anteriormente, los datos del candidato podrían haber sido manejados como un simple objeto JSON sin métodos.
-    const candidate = {
-        id: 1,
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john.doe@example.com'
-    };
-    ```
-    
-    *Después*
-    
-    ```tsx
-    export class Candidate {
-        id?: number;
-        firstName: string;
-        lastName: string;
-        email: string;
-        // Constructor y métodos que encapsulan la lógica de negocio.
-        constructor(data: any) {
-            this.id = data.id;
-            this.firstName = data.firstName;
-            this.lastName = data.lastName;
-            this.email = data.email;
-        }
+  _Antes_
+
+  ```tsx
+  // Anteriormente, los datos del candidato podrían haber sido manejados como un simple objeto JSON sin métodos.
+  const candidate = {
+    id: 1,
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+  };
+  ```
+
+  _Después_
+
+  ```tsx
+  export class Candidate {
+    id?: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    // Constructor y métodos que encapsulan la lógica de negocio.
+    constructor(data: any) {
+      this.id = data.id;
+      this.firstName = data.firstName;
+      this.lastName = data.lastName;
+      this.email = data.email;
     }
-    ```
-    
+  }
+  ```
+
     <aside>
     💡 **Explicación**: `Candidate` es una entidad ya que tiene un identificador único (**id**) que lo distingue de otros candidatos, incluso si otras propiedades son idénticas.
     
     </aside>
-    
+
 - **Value Objects:** Objetos que describen aspectos del dominio sin identidad conceptual.
-    
-    *Antes*
-    
-    ```tsx
-     // Manejo de información de educación como un simple objeto.
-    const education = {
-        institution: 'University',
-        degree: 'Bachelor',
-        startDate: '2010-01-01',
-        endDate: '2014-01-01'
-    };
-    ```
-    
-    *Después*
-    
-    ```tsx
-    export class Education {
-        institution: string;
-        title: string;
-        startDate: Date;
-        endDate?: Date;
-        constructor(data: any) {
-            this.institution = data.institution;
-            this.title = data.title;
-            this.startDate = new Date(data.startDate);
-            this.endDate = data.endDate ? new Date(data.endDate) : undefined;
-        }
+  _Antes_
+
+  ```tsx
+  // Manejo de información de educación como un simple objeto.
+  const education = {
+    institution: 'University',
+    degree: 'Bachelor',
+    startDate: '2010-01-01',
+    endDate: '2014-01-01',
+  };
+  ```
+
+  _Después_
+
+  ```tsx
+  export class Education {
+    institution: string;
+    title: string;
+    startDate: Date;
+    endDate?: Date;
+    constructor(data: any) {
+      this.institution = data.institution;
+      this.title = data.title;
+      this.startDate = new Date(data.startDate);
+      this.endDate = data.endDate ? new Date(data.endDate) : undefined;
     }
-    ```
-    
+  }
+  ```
+
     <aside>
     💡 **Explicación**: `Education` puede considerarse un **Value Object** en algunos contextos, ya que describe la educación de un candidato sin necesidad de un identificador único que lo defina por sí mismo. Sin embargo, en este modelo, se le ha asignado un id, lo que podría contradecir la definición pura de Value Object en DDD.
     
@@ -97,36 +95,35 @@ El **Diseño Guiado por el Dominio (DDD)** es una metodología que se enfoca en 
     ```tsx
     
     ```
-    
+
 - **Agregados:** Conjuntos de objetos que deben ser tratados como una unidad.
-    
-    *Antes*
-    
-    ```tsx
-     // Datos del candidato y su educación manejados por separado.
-    const candidate = { id: 1, name: 'John Doe' };
-    const educations = [{ candidateId: 1, institution: 'University' }];
-    ```
-    
-    *Después*
-    
-    ```tsx
-    export class Candidate {
-        id?: number;
-        firstName: string;
-        lastName: string;
-        email: string;
-        educations: Education[];
-        constructor(data: any) {
-            this.id = data.id;
-            this.firstName = data.firstName;
-            this.lastName = data.lastName;
-            this.email = data.email;
-            this.educations = data.educations.map(edu => new Education(edu));
-        }
+  _Antes_
+
+  ```tsx
+  // Datos del candidato y su educación manejados por separado.
+  const candidate = { id: 1, name: 'John Doe' };
+  const educations = [{ candidateId: 1, institution: 'University' }];
+  ```
+
+  _Después_
+
+  ```tsx
+  export class Candidate {
+    id?: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    educations: Education[];
+    constructor(data: any) {
+      this.id = data.id;
+      this.firstName = data.firstName;
+      this.lastName = data.lastName;
+      this.email = data.email;
+      this.educations = data.educations.map((edu) => new Education(edu));
     }
-    ```
-    
+  }
+  ```
+
     <aside>
     💡 **Explicación**: `Candidate` actúa como un agregado que contiene `Education`, `WorkExperience`, `Resume`, y `Application`. `Candidate` es la raíz del agregado, ya que las otras entidades tienen sentido solo en relación con un candidato.
     
@@ -142,31 +139,29 @@ El **Diseño Guiado por el Dominio (DDD)** es una metodología que se enfoca en 
     ```tsx
     
     ```
-    
+
 - **Repositorios:** Interfaces que proporcionan acceso a agregados y entidades.
-    
-    *Antes*
-    
-    ```tsx
-    // Acceso directo a la base de datos sin abstracción.
-    function getCandidateById(id) {
-        return database.query('SELECT * FROM candidates WHERE id = ?', [id]);
+  _Antes_
+
+  ```tsx
+  // Acceso directo a la base de datos sin abstracción.
+  function getCandidateById(id) {
+    return database.query('SELECT * FROM candidates WHERE id = ?', [id]);
+  }
+  ```
+
+  Explicación:
+  _Después_
+
+  ```tsx
+  export class CandidateRepository {
+    async findById(id: number): Promise<Candidate | null> {
+      const data = await prisma.candidate.findUnique({ where: { id } });
+      return data ? new Candidate(data) : null;
     }
-    ```
-    
-    Explicación:
-    
-    *Después*
-    
-    ```tsx
-    export class CandidateRepository {
-        async findById(id: number): Promise<Candidate | null> {
-            const data = await prisma.candidate.findUnique({ where: { id } });
-            return data ? new Candidate(data) : null;
-        }
-    }
-    ```
-    
+  }
+  ```
+
     <aside>
     💡 **Explicación**: `CandidateRepository` proporciona una interfaz clara para acceder a los datos de los candidatos, encapsulando la lógica de acceso a la base de datos.
     
@@ -177,53 +172,49 @@ El **Diseño Guiado por el Dominio (DDD)** es una metodología que se enfoca en 
     - Desarrollar interfaces de repositorio completas para cada entidad y agregado, asegurando que toda interacción con la base de datos para esas entidades pase por el repositorio. Esto podría incluir métodos para crear, actualizar, eliminar y buscar entidades.
     - Implementar métodos de repositorio que manejen colecciones de entidades, como listas de Candidates, que puedan ser filtradas o modificadas en masa.
     </aside>
-    
+
 - **Servicios de Dominio:** Lógica de negocio que no pertenece naturalmente a una entidad o valor.
-    
-    *Antes*
-    
-    ```tsx
-    // Funciones sueltas para manejar la lógica de negocio.
-    function calculateAge(candidate) {
-        const today = new Date();
-        const birthDate = new Date(candidate.birthDate);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        return age;
+  _Antes_
+
+  ```tsx
+  // Funciones sueltas para manejar la lógica de negocio.
+  function calculateAge(candidate) {
+    const today = new Date();
+    const birthDate = new Date(candidate.birthDate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
     }
-    ```
-    
-    *Después*
-    
-    ```tsx
-    export class CandidateService {
-      static calculateAge(candidate: Candidate): number {
-          const today = new Date();
-          const birthDate = new Date(candidate.birthDate);
-          let age = today.getFullYear() - birthDate.getFullYear();
-          const m = today.getMonth() - birthDate.getMonth();
-          if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-              age--;
-          }
-          return age;
+    return age;
+  }
+  ```
+
+  _Después_
+
+  ```tsx
+  export class CandidateService {
+    static calculateAge(candidate: Candidate): number {
+      const today = new Date();
+      const birthDate = new Date(candidate.birthDate);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
       }
+      return age;
     }
-    ```
-    
+  }
+  ```
+
     <aside>
     💡 **Explicación**: `CandidateService` encapsula la lógica de negocio relacionada con los candidatos, como calcular la edad, proporcionando un punto centralizado y coherente para manejar estas operaciones.
     
     </aside>
-    
+
 - **Otra recomendaciones**
-    
-    **Uso de Factories**
-    
-    Las factories son útiles en DDD para encapsular la lógica de creación de objetos complejos, asegurando que todos los objetos creados cumplan con las reglas del dominio desde el momento de su creación.
-    
+  **Uso de Factories**
+  Las factories son útiles en DDD para encapsular la lógica de creación de objetos complejos, asegurando que todos los objetos creados cumplan con las reglas del dominio desde el momento de su creación.
     <aside>
     💡 **Mejora Propuesta:** Implementar factories para la creación de entidades y agregados, especialmente aquellos que son complejos y requieren de una configuración inicial específica que cumpla con las reglas del negocio.
     
@@ -246,7 +237,6 @@ El **Diseño Guiado por el Dominio (DDD)** es una metodología que se enfoca en 
     💡 **Mejora Propuesta:** Implementar un sistema de eventos de dominio que permita a las entidades y agregados publicar eventos que otros componentes del sistema pueden manejar sin estar fuertemente acoplados a las entidades que los generan.
     
     </aside>
-    
 
 ## **2. Principios SOLID y DRY**
 
@@ -255,39 +245,38 @@ El **Diseño Guiado por el Dominio (DDD)** es una metodología que se enfoca en 
 Los principios SOLID son cinco principios de diseño orientados a objetos que ayudan a crear sistemas más comprensibles, flexibles y mantenibles.
 
 - **S - Single Responsibility Principle (SRP):** Cada clase debe tener una única responsabilidad o razón para cambiar.
-    
-    *Antes*
-    
-    ```tsx
-    // Un método que maneja múltiples responsabilidades: validación y almacenamiento de datos.
-    function processCandidate(candidate) {
-        if (!candidate.email.includes('@')) {
-            console.error('Email inválido');
-            return;
-        }
-        database.save(candidate);
-        console.log('Candidato guardado');
+  _Antes_
+
+  ```tsx
+  // Un método que maneja múltiples responsabilidades: validación y almacenamiento de datos.
+  function processCandidate(candidate) {
+    if (!candidate.email.includes('@')) {
+      console.error('Email inválido');
+      return;
     }
-    ```
-    
-    *Después*
-    
-    ```tsx
-    export class Candidate {
-      // La clase ahora solo se encarga de la lógica relacionada con el candidato.
-      validateEmail() {
-          if (!this.email.includes('@')) {
-              throw new Error('Email inválido');
-          }
-      }
-    
-      save() {
-          this.validateEmail();
-          prisma.candidate.create(this);
+    database.save(candidate);
+    console.log('Candidato guardado');
+  }
+  ```
+
+  _Después_
+
+  ```tsx
+  export class Candidate {
+    // La clase ahora solo se encarga de la lógica relacionada con el candidato.
+    validateEmail() {
+      if (!this.email.includes('@')) {
+        throw new Error('Email inválido');
       }
     }
-    ```
-    
+
+    save() {
+      this.validateEmail();
+      prisma.candidate.create(this);
+    }
+  }
+  ```
+
     <aside>
     💡 **Explicación**: La clase `Candidate` ahora tiene métodos separados para validar el email y guardar la información, cumpliendo con el principio de responsabilidad única.
     
@@ -312,40 +301,39 @@ Los principios SOLID son cinco principios de diseño orientados a objetos que ay
         }
     }
     ```
-    
+
 - **O - Open/Closed Principle (OCP):** Las entidades de software deben estar abiertas para extensión, pero cerradas para modificación.
-    
-    *Antes*
-    
-    ```tsx
-    // Modificación directa de la clase para añadir funcionalidad.
-    class Candidate {
-        saveToDatabase() {
-            // código para guardar en la base de datos
-        }
-        // Para añadir nueva funcionalidad, modificamos la clase directamente.
-        sendEmail() {
-            // código para enviar un email
-        }
+  _Antes_
+
+  ```tsx
+  // Modificación directa de la clase para añadir funcionalidad.
+  class Candidate {
+    saveToDatabase() {
+      // código para guardar en la base de datos
     }
-    ```
-    
-    *Después*
-    
-    ```tsx
-    export class Candidate {
-      saveToDatabase() {
-          // código para guardar en la base de datos
-      }
+    // Para añadir nueva funcionalidad, modificamos la clase directamente.
+    sendEmail() {
+      // código para enviar un email
     }
-    // Extendemos la funcionalidad sin modificar la clase existente.
-    class CandidateWithEmail extends Candidate {
-      sendEmail() {
-          // código para enviar un email
-      }
+  }
+  ```
+
+  _Después_
+
+  ```tsx
+  export class Candidate {
+    saveToDatabase() {
+      // código para guardar en la base de datos
     }
-    ```
-    
+  }
+  // Extendemos la funcionalidad sin modificar la clase existente.
+  class CandidateWithEmail extends Candidate {
+    sendEmail() {
+      // código para enviar un email
+    }
+  }
+  ```
+
     <aside>
     💡 **Explicación**: La funcionalidad de enviar un email se extiende en una subclase, manteniendo la clase original cerrada para modificaciones pero abierta para extensiones.
     
@@ -370,31 +358,30 @@ Los principios SOLID son cinco principios de diseño orientados a objetos que ay
         }
     }
     ```
-    
+
 - **L - Liskov Substitution Principle (LSP):** Los objetos de una clase derivada deben ser reemplazables por objetos de la clase base sin alterar el funcionamiento del programa.
-    
-    *Antes*
-    
-    ```tsx
-    // Subclase que no puede reemplazar completamente a su clase base.
-    class TemporaryCandidate extends Candidate {
-        saveToDatabase() {
-            throw new Error("Temporary candidates can't be saved.");
-        }
+  _Antes_
+
+  ```tsx
+  // Subclase que no puede reemplazar completamente a su clase base.
+  class TemporaryCandidate extends Candidate {
+    saveToDatabase() {
+      throw new Error("Temporary candidates can't be saved.");
     }
-    ```
-    
-    *Después*
-    
-    ```tsx
-    class TemporaryCandidate extends Candidate {
-      saveToDatabase() {
-          // Implementación adecuada que permite guardar o manejar temporalmente.
-          console.log("Handled temporarily");
-      }
+  }
+  ```
+
+  _Después_
+
+  ```tsx
+  class TemporaryCandidate extends Candidate {
+    saveToDatabase() {
+      // Implementación adecuada que permite guardar o manejar temporalmente.
+      console.log('Handled temporarily');
     }
-    ```
-    
+  }
+  ```
+
     <aside>
     💡 **Explicación**: `TemporaryCandidate` ahora proporciona una implementación adecuada que respeta el contrato de la clase base, permitiendo su sustitución sin errores.
     
@@ -407,47 +394,46 @@ Los principios SOLID son cinco principios de diseño orientados a objetos que ay
     Continue using composition to avoid LSP violations and ensure that any future inheritance structures allow derived classes to substitute their base classes without altering how the program works.
     
     </aside>
-    
+
 - **I - Interface Segregation Principle (ISP):** Muchas interfaces específicas son mejores que una sola interfaz general.
-    
-    *Antes*
-    
-    ```tsx
-    // Una interfaz grande que los clientes pequeños no usan completamente.
-    interface CandidateOperations {
-        save();
-        validate();
-        sendEmail();
-        generateReport();
+  _Antes_
+
+  ```tsx
+  // Una interfaz grande que los clientes pequeños no usan completamente.
+  interface CandidateOperations {
+    save();
+    validate();
+    sendEmail();
+    generateReport();
+  }
+  ```
+
+  _Después_
+
+  ```tsx
+  interface SaveOperation {
+    save();
+  }
+
+  interface EmailOperations {
+    sendEmail();
+  }
+
+  interface ReportOperations {
+    generateReport();
+  }
+
+  class Candidate implements SaveOperation, EmailOperations {
+    save() {
+      // implementación
     }
-    ```
-    
-    *Después*
-    
-    ```tsx
-    interface SaveOperation {
-        save();
+
+    sendEmail() {
+      // implementación
     }
-    
-    interface EmailOperations {
-        sendEmail();
-    }
-    
-    interface ReportOperations {
-        generateReport();
-    }
-    
-    class Candidate implements SaveOperation, EmailOperations {
-        save() {
-            // implementación
-        }
-    
-        sendEmail() {
-            // implementación
-        }
-    }
-    ```
-    
+  }
+  ```
+
     <aside>
     💡 **Explicación**: Las interfaces están segregadas en operaciones más pequeñas, permitiendo que las clases implementen solo las interfaces que necesitan.
     
@@ -471,40 +457,39 @@ Los principios SOLID son cinco principios de diseño orientados a objetos que ay
         findCandidateById(id: number): Promise<Candidate | null>;
     }
     ```
-    
+
 - **D - Dependency Inversion Principle (DIP):** Los módulos de alto nivel no deben depender de módulos de bajo nivel; ambos deben depender de abstracciones.
-    
-    *Antes*
-    
-    ```tsx
-    // Dependencia directa de una implementación concreta.
-    class Candidate {
-        private database = new MySQLDatabase();
-        save() {
-            this.database.save(this);
-        }
+  _Antes_
+
+  ```tsx
+  // Dependencia directa de una implementación concreta.
+  class Candidate {
+    private database = new MySQLDatabase();
+    save() {
+      this.database.save(this);
     }
-    ```
-    
-    *Después*
-    
-    ```tsx
-    interface Database {
-        save(candidate: Candidate);
+  }
+  ```
+
+  _Después_
+
+  ```tsx
+  interface Database {
+    save(candidate: Candidate);
+  }
+
+  class Candidate {
+    private database: Database;
+    constructor(database: Database) {
+      this.database = database;
     }
-    
-    class Candidate {
-        private database: Database;
-        constructor(database: Database) {
-            this.database = database;
-        }
-    
-        save() {
-            this.database.save(this);
-        }
+
+    save() {
+      this.database.save(this);
     }
-    ```
-    
+  }
+  ```
+
     <aside>
     💡 **Explicación**: `Candidate` ahora depende de una abstracción (Database), no de una implementación concreta, lo que facilita la flexibilidad y la prueba del código.
     
@@ -527,50 +512,49 @@ Los principios SOLID son cinco principios de diseño orientados a objetos que ay
         // Initialization code
     }
     ```
-    
 
 **DRY (Don't Repeat Yourself)**
 
 El principio DRY se centra en la reducción de duplicación en el código. Cada pieza de conocimiento debe tener una representación única, inequívoca y autoritativa dentro de un sistema.
 
-*Antes*
+_Antes_
 
 ```tsx
 // Código repetido para validar emails en múltiples funciones.
 function saveCandidate(candidate) {
-    if (!candidate.email.includes('@')) {
-        throw new Error('Email inválido');
-    }
-    // guardar lógica
+  if (!candidate.email.includes('@')) {
+    throw new Error('Email inválido');
+  }
+  // guardar lógica
 }
 
 function updateCandidate(candidate) {
-    if (!candidate.email.includes('@')) {
-        throw new Error('Email inválido');
-    }
-    // actualizar lógica
+  if (!candidate.email.includes('@')) {
+    throw new Error('Email inválido');
+  }
+  // actualizar lógica
 }
 ```
 
-*Después*
+_Después_
 
 ```tsx
 export class Candidate {
-    validateEmail() {
-        if (!this.email.includes('@')) {
-            throw new Error('Email inválido');
-        }
+  validateEmail() {
+    if (!this.email.includes('@')) {
+      throw new Error('Email inválido');
     }
+  }
 
-    save() {
-        this.validateEmail();
-        // guardar lógica
-    }
+  save() {
+    this.validateEmail();
+    // guardar lógica
+  }
 
-    update() {
-        this.validateEmail();
-        // actualizar lógica
-    }
+  update() {
+    this.validateEmail();
+    // actualizar lógica
+  }
 }
 ```
 
@@ -593,9 +577,9 @@ Create a generic database handler.
 
 ```tsx
 class DatabaseHandler {
-    static async saveEntity(entity: any) {
-        // Generic save logic
-    }
+  static async saveEntity(entity: any) {
+    // Generic save logic
+  }
 }
 ```
 

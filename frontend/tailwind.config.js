@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./public/index.html",
-    "./src/**/*.{js,jsx,ts,tsx}"
-  ],
+  content: ['./public/index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -14,11 +11,9 @@ module.exports = {
         success: '#16a34a',
         warning: '#f59e0b',
         danger: '#dc2626',
-        muted: '#6b7280'
-      }
+        muted: '#6b7280',
+      },
     },
   },
   plugins: [],
 };
-
-

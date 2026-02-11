@@ -56,11 +56,7 @@ const FileUploader = ({ onChange, onUpload }) => {
         </button>
       </div>
       <p className="mb-0 text-sm text-gray-600">Selected file: {fileName}</p>
-      {fileData && (
-        <p className="mt-2 text-sm text-green-700">
-          Archivo subido con éxito
-        </p>
-      )}
+      {fileData && <p className="mt-2 text-sm text-green-700">Archivo subido con éxito</p>}
     </div>
   );
 };
