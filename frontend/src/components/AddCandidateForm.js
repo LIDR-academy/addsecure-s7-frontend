@@ -109,52 +109,69 @@ const AddCandidateForm = () => {
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm text-gray-700 mb-1">Nombre</label>
+              <label htmlFor="firstName" className="block text-sm text-gray-700 mb-1">
+                Nombre
+              </label>
               <input
                 type="text"
+                id="firstName"
                 name="firstName"
                 required
                 onChange={(e) => setCandidate({ ...candidate, firstName: e.target.value })}
                 className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
               />
 
-              <label className="block text-sm text-gray-700 mb-1">Apellido</label>
+              <label htmlFor="lastName" className="block text-sm text-gray-700 mb-1">
+                Apellido
+              </label>
               <input
                 type="text"
+                id="lastName"
                 name="lastName"
                 required
                 onChange={(e) => setCandidate({ ...candidate, lastName: e.target.value })}
                 className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
               />
 
-              <label className="block text-sm text-gray-700 mb-1">Correo Electrónico</label>
+              <label htmlFor="email" className="block text-sm text-gray-700 mb-1">
+                Correo Electrónico
+              </label>
               <input
                 type="email"
+                id="email"
                 name="email"
                 required
                 onChange={(e) => setCandidate({ ...candidate, email: e.target.value })}
                 className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
               />
 
-              <label className="block text-sm text-gray-700 mb-1">Teléfono</label>
+              <label htmlFor="phone" className="block text-sm text-gray-700 mb-1">
+                Teléfono
+              </label>
               <input
                 type="tel"
+                id="phone"
                 name="phone"
                 onChange={(e) => setCandidate({ ...candidate, phone: e.target.value })}
                 className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
               />
 
-              <label className="block text-sm text-gray-700 mb-1">Dirección</label>
+              <label htmlFor="address" className="block text-sm text-gray-700 mb-1">
+                Dirección
+              </label>
               <input
                 type="text"
+                id="address"
                 name="address"
                 onChange={(e) => setCandidate({ ...candidate, address: e.target.value })}
                 className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-700 mb-1">CV</label>
-              <FileUploader onChange={handleCVUpload} onUpload={handleCVUpload} />
+              <label htmlFor="cv-upload" className="block text-sm text-gray-700 mb-1">
+                CV
+              </label>
+              <FileUploader id="cv-upload" onChange={handleCVUpload} onUpload={handleCVUpload} />
 
               <div className="mt-4">
                 <button
