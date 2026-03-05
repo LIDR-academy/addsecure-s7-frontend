@@ -83,6 +83,15 @@ Base URL: `http://localhost:3010`
 - Implement accessibility: tabindex, aria-label, keyboard event handlers
 - Use descriptive variable and function names
 
+#### React & performance best practices
+
+- **Avoid data-fetch waterfalls**: Start independent async work in parallel (e.g. `Promise.all`) and only `await` when a value is actually needed. Prefer composing server components so data fetching can run concurrently.
+- **Minimize client bundle size**: Import directly from specific library entry points instead of large barrel imports, and use dynamic imports for heavy/rarely used components.
+- **Keep server/client boundary lean**: When passing props from server to client components, pass only the fields the client actually uses (avoid serializing full ORM objects).
+- **Reduce unnecessary re-renders**: Extract expensive subtrees into memoizable components, narrow `useEffect` dependencies to primitives, and use functional `setState` updates when the new state depends on the previous state.
+- **Optimize lists and UI rendering**: For long lists, prefer virtualization or `content-visibility: auto` styles, and avoid recreating large static JSX/SVG trees on every render.
+- **For deeper guidance**: When changing React code or optimizing performance, follow `.claude/skills/react-best-practices/AGENTS.md` for detailed patterns and examples.
+
 ### General
 
 - Follow DRY principle - centralize repeated logic

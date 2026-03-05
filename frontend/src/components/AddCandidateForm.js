@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import FileUploader from './FileUploader';
 import DatePicker from 'react-datepicker';
@@ -103,200 +104,234 @@ const AddCandidateForm = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 mt-12">
-      <h1 className="mb-4 text-2xl font-semibold">Agregar Candidato</h1>
-      <div className="shadow rounded border border-gray-200 p-6">
-        <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="firstName" className="block text-sm text-gray-700 mb-1">
-                Nombre
-              </label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                required
-                onChange={(e) => setCandidate({ ...candidate, firstName: e.target.value })}
-                className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
-              />
+    <div className="flex flex-col h-full">
+      {/* Page Header */}
+      <header className="bg-white border-b-2 border-black px-8 py-5 flex items-center justify-between flex-shrink-0">
+        <div className="flex flex-col gap-1">
+          <nav aria-label="Breadcrumb">
+            <ol className="flex items-center text-[14px]">
+              <li>
+                <Link to="/" className="text-[#666]">
+                  Home
+                </Link>
+              </li>
+              <li className="flex items-center">
+                <span className="text-[#666] mx-2">/</span>
+                <span className="font-medium text-black">Add Candidate</span>
+              </li>
+            </ol>
+          </nav>
+          <h1 className="font-bold text-[30px] text-black tracking-[-0.75px] leading-9">
+            Add Candidate
+          </h1>
+        </div>
+      </header>
 
-              <label htmlFor="lastName" className="block text-sm text-gray-700 mb-1">
-                Apellido
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                required
-                onChange={(e) => setCandidate({ ...candidate, lastName: e.target.value })}
-                className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
-              />
+      {/* Form Body */}
+      <div className="flex-1 overflow-y-auto p-8">
+        <div className="max-w-4xl">
+          <div className="bg-white border-2 border-black shadow-[4px_4px_0px_0px_black] p-6">
+            <form onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="firstName" className="block text-sm text-gray-700 mb-1">
+                    Nombre
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    required
+                    onChange={(e) => setCandidate({ ...candidate, firstName: e.target.value })}
+                    className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
+                  />
 
-              <label htmlFor="email" className="block text-sm text-gray-700 mb-1">
-                Correo Electrónico
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                onChange={(e) => setCandidate({ ...candidate, email: e.target.value })}
-                className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
-              />
+                  <label htmlFor="lastName" className="block text-sm text-gray-700 mb-1">
+                    Apellido
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    required
+                    onChange={(e) => setCandidate({ ...candidate, lastName: e.target.value })}
+                    className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
+                  />
 
-              <label htmlFor="phone" className="block text-sm text-gray-700 mb-1">
-                Teléfono
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                onChange={(e) => setCandidate({ ...candidate, phone: e.target.value })}
-                className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
-              />
+                  <label htmlFor="email" className="block text-sm text-gray-700 mb-1">
+                    Correo Electrónico
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    onChange={(e) => setCandidate({ ...candidate, email: e.target.value })}
+                    className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
+                  />
 
-              <label htmlFor="address" className="block text-sm text-gray-700 mb-1">
-                Dirección
-              </label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                onChange={(e) => setCandidate({ ...candidate, address: e.target.value })}
-                className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-            </div>
-            <div>
-              <label htmlFor="cv-upload" className="block text-sm text-gray-700 mb-1">
-                CV
-              </label>
-              <FileUploader id="cv-upload" onChange={handleCVUpload} onUpload={handleCVUpload} />
+                  <label htmlFor="phone" className="block text-sm text-gray-700 mb-1">
+                    Teléfono
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    onChange={(e) => setCandidate({ ...candidate, phone: e.target.value })}
+                    className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary mb-3"
+                  />
 
-              <div className="mt-4">
-                <button
-                  type="button"
-                  onClick={() => handleAddSection('educations')}
-                  className="inline-flex items-center px-3 py-2 rounded bg-primary text-white hover:bg-primary-dark text-sm"
-                >
-                  Añadir Educación
-                </button>
-              </div>
-              {candidate.educations.map((education, index) => (
-                <div key={index} className="mb-3">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
-                    <input
-                      placeholder="Institución"
-                      name="institution"
-                      value={education.institution}
-                      onChange={(e) => handleInputChange(e, index, 'educations')}
-                      className="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                    <input
-                      placeholder="Título"
-                      name="title"
-                      value={education.title}
-                      onChange={(e) => handleInputChange(e, index, 'educations')}
-                      className="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                    <DatePicker
-                      selected={education.startDate}
-                      onChange={(date) => handleDateChange(date, index, 'educations', 'startDate')}
-                      dateFormat="yyyy-MM-dd"
-                      placeholderText="Fecha de Inicio"
-                      className="rounded border border-gray-300 px-3 py-2"
-                    />
-                    <DatePicker
-                      selected={education.endDate}
-                      onChange={(date) => handleDateChange(date, index, 'educations', 'endDate')}
-                      dateFormat="yyyy-MM-dd"
-                      placeholderText="Fecha de Fin"
-                      className="rounded border border-gray-300 px-3 py-2"
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveSection(index, 'educations')}
-                    className="mt-2 inline-flex items-center px-3 py-1.5 rounded bg-red-600 text-white hover:bg-red-700 text-sm"
-                  >
-                    Eliminar
-                  </button>
+                  <label htmlFor="address" className="block text-sm text-gray-700 mb-1">
+                    Dirección
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    onChange={(e) => setCandidate({ ...candidate, address: e.target.value })}
+                    className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
                 </div>
-              ))}
+                <div>
+                  <label htmlFor="cv-upload" className="block text-sm text-gray-700 mb-1">
+                    CV
+                  </label>
+                  <FileUploader
+                    id="cv-upload"
+                    onChange={handleCVUpload}
+                    onUpload={handleCVUpload}
+                  />
 
-              <div className="mt-4">
-                <button
-                  type="button"
-                  onClick={() => handleAddSection('workExperiences')}
-                  className="inline-flex items-center px-3 py-2 rounded bg-primary text-white hover:bg-primary-dark text-sm"
-                >
-                  Añadir Experiencia Laboral
-                </button>
-              </div>
-              {candidate.workExperiences.map((experience, index) => (
-                <div key={index} className="mb-3">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
-                    <input
-                      placeholder="Empresa"
-                      name="company"
-                      value={experience.company}
-                      onChange={(e) => handleInputChange(e, index, 'workExperiences')}
-                      className="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                    <input
-                      placeholder="Puesto"
-                      name="position"
-                      value={experience.position}
-                      onChange={(e) => handleInputChange(e, index, 'workExperiences')}
-                      className="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                    <DatePicker
-                      selected={experience.startDate}
-                      onChange={(date) =>
-                        handleDateChange(date, index, 'workExperiences', 'startDate')
-                      }
-                      dateFormat="yyyy-MM-dd"
-                      placeholderText="Fecha de Inicio"
-                      className="rounded border border-gray-300 px-3 py-2"
-                    />
-                    <DatePicker
-                      selected={experience.endDate}
-                      onChange={(date) =>
-                        handleDateChange(date, index, 'workExperiences', 'endDate')
-                      }
-                      dateFormat="yyyy-MM-dd"
-                      placeholderText="Fecha de Fin"
-                      className="rounded border border-gray-300 px-3 py-2"
-                    />
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      onClick={() => handleAddSection('educations')}
+                      className="inline-flex items-center px-3 py-2 rounded bg-primary text-white hover:bg-primary-dark text-sm"
+                    >
+                      Añadir Educación
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveSection(index, 'workExperiences')}
-                    className="mt-2 inline-flex items-center px-3 py-1.5 rounded bg-red-600 text-white hover:bg-red-700 text-sm"
-                  >
-                    Eliminar
-                  </button>
+                  {candidate.educations.map((education, index) => (
+                    <div key={index} className="mb-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+                        <input
+                          placeholder="Institución"
+                          name="institution"
+                          value={education.institution}
+                          onChange={(e) => handleInputChange(e, index, 'educations')}
+                          className="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                        />
+                        <input
+                          placeholder="Título"
+                          name="title"
+                          value={education.title}
+                          onChange={(e) => handleInputChange(e, index, 'educations')}
+                          className="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                        />
+                        <DatePicker
+                          selected={education.startDate}
+                          onChange={(date) =>
+                            handleDateChange(date, index, 'educations', 'startDate')
+                          }
+                          dateFormat="yyyy-MM-dd"
+                          placeholderText="Fecha de Inicio"
+                          className="rounded border border-gray-300 px-3 py-2"
+                        />
+                        <DatePicker
+                          selected={education.endDate}
+                          onChange={(date) =>
+                            handleDateChange(date, index, 'educations', 'endDate')
+                          }
+                          dateFormat="yyyy-MM-dd"
+                          placeholderText="Fecha de Fin"
+                          className="rounded border border-gray-300 px-3 py-2"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveSection(index, 'educations')}
+                        className="mt-2 inline-flex items-center px-3 py-1.5 rounded bg-red-600 text-white hover:bg-red-700 text-sm"
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  ))}
+
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      onClick={() => handleAddSection('workExperiences')}
+                      className="inline-flex items-center px-3 py-2 rounded bg-primary text-white hover:bg-primary-dark text-sm"
+                    >
+                      Añadir Experiencia Laboral
+                    </button>
+                  </div>
+                  {candidate.workExperiences.map((experience, index) => (
+                    <div key={index} className="mb-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+                        <input
+                          placeholder="Empresa"
+                          name="company"
+                          value={experience.company}
+                          onChange={(e) => handleInputChange(e, index, 'workExperiences')}
+                          className="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                        />
+                        <input
+                          placeholder="Puesto"
+                          name="position"
+                          value={experience.position}
+                          onChange={(e) => handleInputChange(e, index, 'workExperiences')}
+                          className="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                        />
+                        <DatePicker
+                          selected={experience.startDate}
+                          onChange={(date) =>
+                            handleDateChange(date, index, 'workExperiences', 'startDate')
+                          }
+                          dateFormat="yyyy-MM-dd"
+                          placeholderText="Fecha de Inicio"
+                          className="rounded border border-gray-300 px-3 py-2"
+                        />
+                        <DatePicker
+                          selected={experience.endDate}
+                          onChange={(date) =>
+                            handleDateChange(date, index, 'workExperiences', 'endDate')
+                          }
+                          dateFormat="yyyy-MM-dd"
+                          placeholderText="Fecha de Fin"
+                          className="rounded border border-gray-300 px-3 py-2"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveSection(index, 'workExperiences')}
+                        className="mt-2 inline-flex items-center px-3 py-1.5 rounded bg-red-600 text-white hover:bg-red-700 text-sm"
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+              <button
+                type="submit"
+                className="mt-5 inline-flex w-full justify-center items-center px-4 py-2 rounded bg-primary text-white hover:bg-primary-dark"
+              >
+                Enviar
+              </button>
+              {error && (
+                <div className="mt-3 rounded border border-red-300 bg-red-50 text-red-800 p-3 text-sm">
+                  {error}
+                </div>
+              )}
+              {successMessage && (
+                <div className="mt-3 rounded border border-green-300 bg-green-50 text-green-800 p-3 text-sm">
+                  {successMessage}
+                </div>
+              )}
+            </form>
           </div>
-          <button
-            type="submit"
-            className="mt-5 inline-flex w-full justify-center items-center px-4 py-2 rounded bg-primary text-white hover:bg-primary-dark"
-          >
-            Enviar
-          </button>
-          {error && (
-            <div className="mt-3 rounded border border-red-300 bg-red-50 text-red-800 p-3 text-sm">
-              {error}
-            </div>
-          )}
-          {successMessage && (
-            <div className="mt-3 rounded border border-green-300 bg-green-50 text-green-800 p-3 text-sm">
-              {successMessage}
-            </div>
-          )}
-        </form>
+        </div>
       </div>
     </div>
   );

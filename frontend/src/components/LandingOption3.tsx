@@ -303,6 +303,8 @@ const LandingOption3: React.FC = () => {
       </footer>
 
       {/* Google Fonts - JetBrains Mono */}
+      <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+      <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
       <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap"
         rel="stylesheet"

@@ -160,6 +160,8 @@ const LandingOption1: React.FC = () => {
       </footer>
 
       {/* Google Fonts */}
+      <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+      <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
       <link
         href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap"
         rel="stylesheet"
